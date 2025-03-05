@@ -25,6 +25,10 @@ class AddressBook {
         if(contactIndex === -1) throw new Error(`No contact with name '${name}' found`);
         else this.contacts.splice(contactIndex, 1);
     }
+
+    getContactsCount(){
+        return this.contacts.reduce(contact => contact + 1, 0);
+    }
 }
 
 class AddressBookContact {
@@ -105,15 +109,12 @@ class AddressBookContact {
 try{
     let addressBook1 = new AddressBook();
     let contact1 = new AddressBookContact("Abhay", "Shrivastava", "Rajiv Nagar 123", "Bhopal", "Madhya Pradesh", 462021, "+91-6265581172", "abhay123@gmail.com");
+    let contact2 = new AddressBookContact("Ankit", "Kumar", "Sarojini Nagar 123", "Pune", "Maharashtra", 411223, "1234567890", "ankit123@gmail.com")
     
     addressBook1.addContact(contact1);
-    console.log("Before deletion: ", addressBook1.contacts);
-    
-    // addressBook1.editContact("Abhay",  { city: "Indore", phoneNumber: "+91-9876543210" });
-    // console.log("Updated: ", addressBook1.viewContact("Abhay").toString());
-    
-    addressBook1.deleteContact("Abhay");
-    console.log("After deletion: ", addressBook1.contacts);
+    addressBook1.addContact(contact2);
+
+    console.log("Number of contacts in address book:", addressBook1.getContactsCount());
 } catch(error){
     console.error(error.message);
 }
