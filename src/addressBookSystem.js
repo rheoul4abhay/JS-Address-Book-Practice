@@ -32,6 +32,15 @@ class AddressBook {
     getContactsCount(){
         return this.contacts.reduce(contact => contact + 1, 0);
     }
+
+    searchContactByCityOrState(location){
+        if(!location){
+            throw new Error("Provide a city or a state");
+        }
+        else{
+            return this.contacts.filter(contact => contact.state === location || contact.city === location);
+        }
+    }
 }
 
 class AddressBookContact {
@@ -112,10 +121,14 @@ class AddressBookContact {
 try{
     let addressBook1 = new AddressBook();
     let contact1 = new AddressBookContact("Abhay", "Shrivastava", "Rajiv Nagar 123", "Bhopal", "Madhya Pradesh", 462021, "+91-6265581172", "abhay123@gmail.com");
-    let contact2 = new AddressBookContact("Abhay", "Kumar", "Sarojini Nagar 123", "Pune", "Maharashtra", 411223, "1234567890", "abhayk123@gmail.com")
+    let contact2 = new AddressBookContact("Ankit", "Kumar", "Sarojini Nagar 123", "Pune", "Maharashtra", 411223, "1234567890", "ankitk123@gmail.com")
     
     addressBook1.addContact(contact1);
     addressBook1.addContact(contact2);
+
+    console.log("Search by city: ", addressBook1.searchContactByCityOrState("Bhopal"));
+    console.log("Search by state: ", addressBook1.searchContactByCityOrState("Maharashtra"));
+    console.log("Invalid input: ", addressBook1.searchContactByCityOrState(""));
 
 } catch(error){
     console.error(error.message);
