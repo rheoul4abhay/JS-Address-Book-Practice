@@ -4,8 +4,11 @@ class AddressBook {
         this.contacts = [];
     }
 
-    addContact(contact){
-        this.contacts.push(contact);
+    addContact(newContact){
+        if(this.contacts.some(contact => contact.firstName === newContact.firstName)){
+            throw new Error("Duplicate contact entry not allowed")
+        }
+        this.contacts.push(newContact);
     }
 
     viewContact(name){
@@ -109,12 +112,11 @@ class AddressBookContact {
 try{
     let addressBook1 = new AddressBook();
     let contact1 = new AddressBookContact("Abhay", "Shrivastava", "Rajiv Nagar 123", "Bhopal", "Madhya Pradesh", 462021, "+91-6265581172", "abhay123@gmail.com");
-    let contact2 = new AddressBookContact("Ankit", "Kumar", "Sarojini Nagar 123", "Pune", "Maharashtra", 411223, "1234567890", "ankit123@gmail.com")
+    let contact2 = new AddressBookContact("Abhay", "Kumar", "Sarojini Nagar 123", "Pune", "Maharashtra", 411223, "1234567890", "abhayk123@gmail.com")
     
     addressBook1.addContact(contact1);
     addressBook1.addContact(contact2);
 
-    console.log("Number of contacts in address book:", addressBook1.getContactsCount());
 } catch(error){
     console.error(error.message);
 }
