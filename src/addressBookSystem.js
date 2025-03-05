@@ -1,4 +1,5 @@
 class AddressBook {
+
     constructor(){
         this.contacts = [];
     }
@@ -7,9 +8,22 @@ class AddressBook {
         this.contacts.push(contact);
     }
 
+    viewContact(name){
+        let contactIndex = this.contacts.findIndex(contact => contact.firstName === name);
+        if(contactIndex === -1) throw new Error(`No contact with name '${name}' found`);
+        else return this.contacts[contactIndex];
+    }
+
+    editContact(name, newContact){
+        let contactIndex = this.contacts.findIndex(contact => contact.firstName === name);
+        if(contactIndex === -1) throw new Error(`No contact with name '${name}' found`);
+        else Object.assign(this.contacts[contactIndex], newContact);
+    }
+
 }
 
 class AddressBookContact {
+    
     constructor(firstName, lastName, address, city, state, zip, phoneNumber, email){
         this.firstName = this.validateName(firstName);
         this.lastName = this.validateName(lastName);
@@ -60,6 +74,7 @@ class AddressBookContact {
         }
         return zip;
     }
+
     validatePhoneNumber(phoneNumber){
         const phoneNumberRegex = /^\+?([0-9]{1,3}[-. ])?[0-9]{10}$/;
         if(!phoneNumberRegex.test(phoneNumber)){
@@ -86,7 +101,9 @@ try{
     let addressBook1 = new AddressBook();
     let contact1 = new AddressBookContact("Abhay", "Shrivastava", "Rajiv Nagar 123", "Bhopal", "Madhya Pradesh", 462021, "+91-6265581172", "abhay123@gmail.com");
     addressBook1.addContact(contact1);
-    console.log(addressBook1.contacts[0].toString());
+    console.log("Original: ", addressBook1.viewContact("Abhay").toString());
+    addressBook1.editContact("Abhay",  { city: "Indore", phoneNumber: "+91-9876543210" });
+    console.log("Updated: ", addressBook1.viewContact("Abhay").toString());
 } catch(error){
     console.error(error.message);
 }
