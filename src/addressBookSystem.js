@@ -59,6 +59,10 @@ class AddressBook {
             return this.contacts.filter(contact => contact.state === location || contact.city === location).reduce(count => count + 1, 0);
         }
     }
+
+    sortByName() {
+        return this.contacts.sort((a, b) => a.firstName.localeCompare(b.firstName));
+    }
 }
 
 class AddressBookContact {
@@ -145,9 +149,10 @@ try{
     addressBook1.addContact(contact2);
     addressBook1.addContact(contact3);
 
-    console.log("State count:", addressBook1.countContactsByCityOrState("Maharashtra"))
-    console.log("City count:", addressBook1.countContactsByCityOrState("Bhopal"));
+    console.log("Before sorting:", addressBook1.contacts);
 
+    addressBook1.sortByName();
+    console.log("After sorting:", addressBook1.contacts);
 } catch(error){
     console.error(error.message);
 }
