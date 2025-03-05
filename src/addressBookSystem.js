@@ -63,6 +63,16 @@ class AddressBook {
     sortByName() {
         return this.contacts.sort((a, b) => a.firstName.localeCompare(b.firstName));
     }
+
+    sortByCityStateZip(key){
+        return this.contacts.sort((a, b) => {
+            if(typeof a[key] === "string"){
+                return a[key].localeCompare(b[key]);
+            } else {
+                return a[key] - b[key];
+            }
+        })
+    }
 }
 
 class AddressBookContact {
@@ -144,15 +154,21 @@ try{
     let addressBook1 = new AddressBook();
     let contact1 = new AddressBookContact("Abhay", "Shrivastava", "Rajiv Nagar 123", "Bhopal", "Madhya Pradesh", 462021, "+91-6265581172", "abhay123@gmail.com");
     let contact2 = new AddressBookContact("Ankit", "Kumar", "Sarojini Nagar 123", "Pune", "Maharashtra", 411223, "1234567890", "ankitk123@gmail.com")
-    let contact3 = new AddressBookContact("Aman", "Rai", "BK road 123", "Mumbai", "Maharashtra", 411223, "0987654321", "amanrai123@gmail.com")
+    let contact3 = new AddressBookContact("Aman", "Rai", "BK road 123", "Mumbai", "Maharashtra", 311455, "0987654321", "amanrai123@gmail.com")
     addressBook1.addContact(contact1);
     addressBook1.addContact(contact2);
     addressBook1.addContact(contact3);
 
     console.log("Before sorting:", addressBook1.contacts);
 
-    addressBook1.sortByName();
-    console.log("After sorting:", addressBook1.contacts);
+    // addressBook1.sortByCityStateZip("city");
+    // console.log("After sorting by city:", addressBook1.contacts);
+
+    addressBook1.sortByCityStateZip("state");
+    console.log("After sorting by state:", addressBook1.contacts);
+
+    addressBook1.sortByCityStateZip("zip");
+    console.log("After sorting by zip:", addressBook1.contacts);
 } catch(error){
     console.error(error.message);
 }
