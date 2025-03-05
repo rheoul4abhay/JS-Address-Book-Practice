@@ -1,4 +1,15 @@
-class AddressBookSystem{
+class AddressBook {
+    constructor(){
+        this.contacts = [];
+    }
+
+    addContact(contact){
+        this.contacts.push(contact);
+    }
+
+}
+
+class AddressBookContact {
     constructor(firstName, lastName, address, city, state, zip, phoneNumber, email){
         this.firstName = this.validateName(firstName);
         this.lastName = this.validateName(lastName);
@@ -72,8 +83,10 @@ class AddressBookSystem{
 }
 
 try{
-    let addressBook1 = new AddressBookSystem("Abhay", "Shrivastava", "Rajiv Nagar 123", "Bhopal", "Madhya Pradesh", 462021, "+91-6265581172", "abhay123@gmail.com");
-    console.log(addressBook1.toString());
+    let addressBook1 = new AddressBook();
+    let contact1 = new AddressBookContact("Abhay", "Shrivastava", "Rajiv Nagar 123", "Bhopal", "Madhya Pradesh", 462021, "+91-6265581172", "abhay123@gmail.com");
+    addressBook1.addContact(contact1);
+    console.log(addressBook1.contacts[0].toString());
 } catch(error){
     console.error(error.message);
 }
